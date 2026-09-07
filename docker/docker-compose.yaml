@@ -1142,8 +1142,17 @@ services:
 	  - '-f'
 	  - /dev/null
   nginx:
-	image: 'nginx:latest'
-	restart: always
+  image: 'nginx:latest'
+  restart: always
+  labels:
+    - traefik.enable=true
+    - traefik.docker.network=50j0bxo5plklrenwbe8msset_default
+    - traefik.http.routers.dify.entrypoints=https
+    - traefik.http.routers.dify.rule=Host(`y7g97qhse42veix12gybofeo.dym-automatic.de`)
+    - traefik.http.routers.dify.tls=true
+    - traefik.http.routers.dify.tls.certresolver=letsencrypt
+    - traefik.http.routers.dify.service=dify
+    - traefik.http.services.dify.loadbalancer.server.port=80
 	volumes:
 	  - './nginx/nginx.conf.template:/etc/nginx/nginx.conf.template'
 	  - './nginx/proxy.conf.template:/etc/nginx/proxy.conf.template'
