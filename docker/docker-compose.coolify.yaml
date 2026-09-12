@@ -498,4 +498,4 @@ networks:
     internal: true
 volumes:
   dify_agent_local_sandbox_home: null
-  dify_agent_local_sandbox_workspace: maik
+  dify_agent_local_sandbox_workspace: null
