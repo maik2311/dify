@@ -271,7 +271,8 @@ services:
     image: langgenius/dify-agent-local-sandbox:1.17.0
     restart: always
     env_file:
-    - ./envs/core-services/local-sandbox.env
+    - path: ./envs/core-services/local-sandbox.env
+      required: false
     environment:
     - SHELLCTL_AUTH_TOKEN=${DIFY_AGENT_LOCAL_SANDBOX_AUTH_TOKEN:-${DIFY_AGENT_SHELLCTL_AUTH_TOKEN:-}}
     - HTTP_PROXY=http://agent_ssrf_proxy:3128
