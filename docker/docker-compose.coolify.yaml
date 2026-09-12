@@ -10,12 +10,18 @@ services:
     restart: 'no'
   api:
     env_file:
-      - ./envs/core-services/shared.env
-      - ./envs/core-services/api.env
-      - ./envs/security.env
-      - ./envs/databases/db-postgres.env
-      - ./envs/databases/redis.env
-      - ./envs/vectorstores/pgvector.env
+      - path: ./envs/core-services/shared.env
+        required: false
+      - path: ./envs/core-services/api.env
+        required: false
+      - path: ./envs/security.env
+        required: false
+      - path: ./envs/databases/db-postgres.env
+        required: false
+      - path: ./envs/databases/redis.env
+        required: false
+      - path: ./envs/vectorstores/pgvector.env
+        required: false
       - ./.env
     networks:
       - ssrf_proxy_network
@@ -58,12 +64,18 @@ services:
       start_period: 30s
   api_websocket:
     env_file:
-      - ./envs/core-services/shared.env
-      - ./envs/core-services/api.env
-      - ./envs/security.env
-      - ./envs/databases/db-postgres.env
-      - ./envs/databases/redis.env
-      - ./envs/vectorstores/pgvector.env
+      - path: ./envs/core-services/shared.env
+        required: false
+      - path: ./envs/core-services/api.env
+        required: false
+      - path: ./envs/security.env
+        required: false
+      - path: ./envs/databases/db-postgres.env
+        required: false
+      - path: ./envs/databases/redis.env
+        required: false
+      - path: ./envs/vectorstores/pgvector.env
+        required: false
       - ./.env
     networks:
       - ssrf_proxy_network
@@ -88,12 +100,18 @@ services:
       - './volumes/app/storage:/app/api/storage'
   worker:
     env_file:
-      - ./envs/core-services/shared.env
-      - ./envs/core-services/worker.env
-      - ./envs/security.env
-      - ./envs/databases/db-postgres.env
-      - ./envs/databases/redis.env
-      - ./envs/vectorstores/pgvector.env
+      - path: ./envs/core-services/shared.env
+        required: false
+      - path: ./envs/core-services/worker.env
+        required: false
+      - path: ./envs/security.env
+        required: false
+      - path: ./envs/databases/db-postgres.env
+        required: false
+      - path: ./envs/databases/redis.env
+        required: false
+      - path: ./envs/vectorstores/pgvector.env
+        required: false
       - ./.env
     networks:
       - ssrf_proxy_network
@@ -132,12 +150,18 @@ services:
       disable: '${COMPOSE_WORKER_HEALTHCHECK_DISABLED:-true}'
   worker_beat:
     env_file:
-      - ./envs/core-services/shared.env
-      - ./envs/core-services/worker-beat.env
-      - ./envs/security.env
-      - ./envs/databases/db-postgres.env
-      - ./envs/databases/redis.env
-      - ./envs/vectorstores/pgvector.env
+      - path: ./envs/core-services/shared.env
+        required: false
+      - path: ./envs/core-services/worker-beat.env
+        required: false
+      - path: ./envs/security.env
+        required: false
+      - path: ./envs/databases/db-postgres.env
+        required: false
+      - path: ./envs/databases/redis.env
+        required: false
+      - path: ./envs/vectorstores/pgvector.env
+        required: false
       - ./.env
     networks:
       - ssrf_proxy_network
@@ -167,8 +191,10 @@ services:
     image: 'langgenius/dify-web:1.17.0'
     restart: always
     env_file:
-      - ./envs/core-services/web.env
-      - ./envs/security.env
+      - path: ./envs/core-services/web.env
+        required: false
+      - path: ./envs/security.env
+        required: false
       - ./.env
     environment:
       CONSOLE_API_URL: '${CONSOLE_API_URL:-}'
@@ -239,8 +265,10 @@ services:
     image: 'langgenius/dify-sandbox:0.2.15'
     restart: always
     env_file:
-      - ./envs/core-services/sandbox.env
-      - ./envs/security.env
+      - path: ./envs/core-services/sandbox.env
+        required: false
+      - path: ./envs/security.env
+        required: false
       - ./.env
     environment:
       API_KEY: '${SANDBOX_API_KEY:-dify-sandbox}'
@@ -290,11 +318,16 @@ services:
     image: 'langgenius/dify-plugin-daemon:0.6.10-local'
     restart: always
     env_file:
-      - ./envs/core-services/shared.env
-      - ./envs/core-services/plugin-daemon.env
-      - ./envs/security.env
-      - ./envs/databases/db-postgres.env
-      - ./envs/databases/redis.env
+      - path: ./envs/core-services/shared.env
+        required: false
+      - path: ./envs/core-services/plugin-daemon.env
+        required: false
+      - path: ./envs/security.env
+        required: false
+      - path: ./envs/databases/db-postgres.env
+        required: false
+      - path: ./envs/databases/redis.env
+        required: false
       - ./.env
     networks:
       - ssrf_proxy_network
@@ -359,9 +392,12 @@ services:
     image: 'langgenius/dify-agent-backend:1.17.0'
     restart: always
     env_file:
-      - ./envs/core-services/dify-agent.env
-      - ./envs/security.env
-      - ./envs/databases/redis.env
+      - path: ./envs/core-services/dify-agent.env
+        required: false
+      - path: ./envs/security.env
+        required: false
+      - path: ./envs/databases/redis.env
+        required: false
       - ./.env
     environment:
       DIFY_AGENT_REDIS_URL: '${DIFY_AGENT_REDIS_URL:-redis://:${REDIS_PASSWORD:-difyai123456}@redis:6379/2}'
